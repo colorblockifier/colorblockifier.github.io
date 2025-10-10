@@ -27,9 +27,11 @@ body {
     height: 100%;
 }
 
-code {
+kbd {
     background-color: var(--base02);
     padding: 0.5rem;
+    display: inline-block;
+    border-radius: 0.25rem;
 }
 
 a, a:visited {
