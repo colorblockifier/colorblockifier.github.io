@@ -29,14 +29,13 @@ async function loadFiles() {
     entriesAll = await reader.getEntries();
     
     entriesFiltered = await entriesAll.filter(filter);
+    // NOT FILTERING!?
+    console.log(entriesFiltered);
     
     fileSizeElement.innerText = `JAR size: ${fileSizeString}`;
-    console.log(entriesFiltered);
 }
 
-async function filter(file) {
-    if (!file.filename.startsWith("assets/minecraft/textures/block/")) return false;
-
-    console.log(file.filename);
+function filter(file) {
+    if (!file.filename.matches("assets/minecraft/textures/block/")) return false;
     return true;
 }
