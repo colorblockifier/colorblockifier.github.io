@@ -6,8 +6,10 @@ import {
 const fileInput = document.querySelector("#file-input");
 fileInput.onchange = selectFile;
 
-let entries;
 let selectedFile;
+let reader;
+let fileSizeString;
+let entries;
 
 async function selectFile() {
     try {
@@ -19,6 +21,11 @@ async function selectFile() {
 }
 
 async function loadFiles() {
-    entries = await new ZipReader(new BlobReader(selectedFile)).getEntries();
+    reader = await new ZipReader(new BlobReader(selectedFile));
+    fileSizeString = `${Math.floor(reader.reader.size / 1e+6)} MB`;
+    entries = await reader.getEntries();
+
+    console.log(reader);
+    console.log(fileSizeString);
     console.log(entries);
 }
