@@ -8,6 +8,8 @@ fileInputElement.onchange = selectFile;
 
 const fileSizeElement = document.querySelector("#file-size");
 
+const blockListElement = document.querySelector("#block-list")
+
 let selectedFile;
 let reader;
 let fileSizeString;
@@ -29,13 +31,13 @@ async function loadFiles() {
     entriesAll = await reader.getEntries();
     
     entriesFiltered = await entriesAll.filter(filter);
-    // NOT FILTERING!?
     console.log(entriesFiltered);
     
     fileSizeElement.innerText = `JAR size: ${fileSizeString}`;
+    blockListElement.value = "hello world :3";
 }
 
 function filter(file) {
-    if (!file.filename.matches("assets/minecraft/textures/block/")) return false;
+    if (!file.filename.startsWith("assets/minecraft/textures/block/")) return false;
     return true;
 }
