@@ -38,7 +38,7 @@ a, a:visited {
     color: var(--base2);
 }
 
-#fileInput {
+#file-input {
     text-align: center;
     background-color: var(--base0);
     color: var(--base03);
