@@ -1,6 +1,10 @@
 # colorblockifier
 Sort Minecraft blocks by color
-https://colorblockifier.github.io
+
+[**colorblockifier.github.io**](https://colorblockifier.github.io)
+> All processing is done locally in your browser without uploading to a server, and no programs need to be installed on your computer!
+> 
+> This web app extracts the textures from a Minecraft version JAR you choose from your computer, to stay compliant with Minecraft's TOS by not redistributing the textures.
 
 ### Credits:
 - Created by: [comfysquirrel](https://github.com/comfysquirrel)
