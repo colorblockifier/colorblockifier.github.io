@@ -34,7 +34,11 @@ async function loadFiles() {
     console.log(entriesFiltered);
     
     fileSizeElement.innerText = `JAR size: ${fileSizeString}`;
-    blockListElement.value = "hello world :3";
+
+    let filteredBlocksText = entriesFiltered.reduce((accumulator, currentValue) => {
+        return `${accumulator}${currentValue.filename}\n`;
+    }, "").trim();
+    blockListElement.value = filteredBlocksText;
 }
 
 function filter(file) {
