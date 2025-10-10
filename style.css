@@ -80,6 +80,10 @@ input[type="file"]::file-selector-button {
     padding: 0 1.25rem;
 }
 
+.header, .header a {
+    color: var(--base03);
+}
+
 .menu {
     text-align: left;
 }
@@ -87,7 +91,7 @@ input[type="file"]::file-selector-button {
 .title {
     grid-area: title;
     font-weight: bold;
-    width: 100%;
+    letter-spacing: 0.25cap;
 }
 
 .about {
