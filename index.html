@@ -11,11 +11,16 @@
     <div class="main">
         <div class="file-uploader">
             <div class="description">
-                <p>Upload a Minecraft jar to sort textures by color.</p>
+                <span>Upload a Minecraft jar to sort textures by color.</span>
                 <kbd><a href="https://minecraft.wiki/w/.minecraft#Locating">.minecraft</a>/versions/&lt;version&gt;/&ltversion&gt;.jar</kbd>
             </div>
 
-            <input type="file" accept=".jar" name="File Input" id="file-input">
+            <div class="file-processor">
+                <input type="file" accept=".jar" name="File Input" id="file-input">
+                <div id="file-info">
+                    <span>&nbsp;</span>
+                </div>
+            </div>
         </div>
     </div>
 </body>

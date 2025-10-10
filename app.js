@@ -3,17 +3,20 @@ import {
     BlobReader,
 } from "https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2.8.7/+esm";
 
-const fileInput = document.querySelector("#file-input");
-fileInput.onchange = selectFile;
+const fileInputElement = document.querySelector("#file-input");
+fileInputElement.onchange = selectFile;
+
+const fileInfoElement = document.querySelector("#file-info");
 
 let selectedFile;
 let reader;
 let fileSizeString;
-let entries;
+let entriesAll;
+let entriesFiltered;
 
 async function selectFile() {
     try {
-        selectedFile = fileInput.files[0];
+        selectedFile = fileInputElement.files[0];
         await loadFiles();
     } catch (error) {
         alert(error);
@@ -23,9 +26,17 @@ async function selectFile() {
 async function loadFiles() {
     reader = await new ZipReader(new BlobReader(selectedFile));
     fileSizeString = `${Math.floor(reader.reader.size / 1e+6)} MB`;
-    entries = await reader.getEntries();
+    entriesAll = await reader.getEntries();
+    
+    entriesFiltered = await entriesAll.filter(filter);
+    
+    fileInfoElement.innerText = `JAR size: ${fileSizeString}`;
+    console.log(entriesFiltered);
+}
 
-    console.log(reader);
-    console.log(fileSizeString);
-    console.log(entries);
+async function filter(file) {
+    if (!file.filename.startsWith("assets/minecraft/textures/block/")) return false;
+
+    console.log(file.filename);
+    return true;
 }
