@@ -7,7 +7,7 @@ Sort Minecraft blocks by color
 > This web app extracts the textures from a Minecraft version JAR you choose from your computer, to stay compliant with Minecraft's TOS by not redistributing the textures.
 
 ### Credits:
-- Created by: [comfysquirrel](https://github.com/comfysquirrel)
+- Made by: [comfysquirrel](https://github.com/comfysquirrel)
 - Colorscheme: [Solarized Dark](https://ethanschoonover.com/solarized/) by Ethan Schoonover
 - Library for handling ZIP files: [zip.js](https://gildas-lormeau.github.io/zip.js/)
 
