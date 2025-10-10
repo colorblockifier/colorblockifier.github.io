@@ -40,7 +40,7 @@ async function loadFiles() {
     }, "").trim();
     blockListElement.value = filteredBlocksText;
 
-    fileInfoElement.innerText = `JAR size: ${fileSizeString}, Textures: ${totalTextures}, Blocks: ${totalBlocks}`;
+    fileInfoElement.innerText = `JAR size: ${fileSizeString}, All textures: ${totalTextures}, Block textures: ${totalBlocks}`;
 }
 
 function filterTextures(file) {
