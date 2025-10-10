@@ -9,18 +9,17 @@
 </head>
 <body>
     <div class="main">
-        <div class="file-uploader">
+        <div class="file-uploader box">
             <div class="description">
                 <span>Upload a Minecraft jar to sort textures by color.</span>
                 <kbd><a href="https://minecraft.wiki/w/.minecraft#Locating">.minecraft</a>/versions/&lt;version&gt;/&ltversion&gt;.jar</kbd>
             </div>
 
-            <div class="file-processor">
-                <input type="file" accept=".jar" name="File Input" id="file-input">
-                <div id="file-info">
-                    <span>&nbsp;</span>
-                </div>
-            </div>
+            <input type="file" accept=".jar" name="File Input" id="file-input">
+        </div>
+
+        <div class="file-info box">
+            <span id="file-size"><i>file info will appear here...</i></span>
         </div>
     </div>
 </body>

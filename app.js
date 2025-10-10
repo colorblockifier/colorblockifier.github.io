@@ -6,7 +6,7 @@ import {
 const fileInputElement = document.querySelector("#file-input");
 fileInputElement.onchange = selectFile;
 
-const fileInfoElement = document.querySelector("#file-info");
+const fileSizeElement = document.querySelector("#file-size");
 
 let selectedFile;
 let reader;
@@ -30,7 +30,7 @@ async function loadFiles() {
     
     entriesFiltered = await entriesAll.filter(filter);
     
-    fileInfoElement.innerText = `JAR size: ${fileSizeString}`;
+    fileSizeElement.innerText = `JAR size: ${fileSizeString}`;
     console.log(entriesFiltered);
 }
 
