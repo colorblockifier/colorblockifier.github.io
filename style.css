@@ -42,7 +42,6 @@ a, a:visited {
     padding: 0.5rem;
     border-radius: 0.5rem;
     font-family: monospace;
-    cursor: pointer;
     box-shadow: 0.15rem 0.15rem var(--cyan);
 }
 
@@ -54,7 +53,7 @@ input[type="file"]::file-selector-button {
     font-family: monospace;
     background-color: var(--base3);
     color: var(--base03);
-    text-decoration: underline;
+    cursor: pointer;
 }
 
 .main {
