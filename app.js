@@ -6,7 +6,7 @@ import {
 const fileInputElement = document.querySelector("#file-input");
 fileInputElement.onchange = selectFile;
 
-const fileSizeElement = document.querySelector("#file-size");
+const fileInfoElement = document.querySelector("#file-info");
 
 const blockListElement = document.querySelector("#block-list")
 
@@ -40,7 +40,7 @@ async function loadFiles() {
     }, "").trim();
     blockListElement.value = filteredBlocksText;
 
-    fileSizeElement.innerText = `JAR size: ${fileSizeString}, Textures: ${totalTextures}, Blocks: ${totalBlocks}`;
+    fileInfoElement.innerText = `JAR size: ${fileSizeString}, Textures: ${totalTextures}, Blocks: ${totalBlocks}`;
 }
 
 function filterTextures(file) {
