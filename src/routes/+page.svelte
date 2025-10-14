@@ -9,8 +9,12 @@
 		Card,
 		Fileupload,
 		Helper,
-		Label
+		Label,
+		Button,
+		Popover,
+		Kbd
 	} from 'flowbite-svelte';
+	import { ArrowUpRightFromSquareOutline } from 'flowbite-svelte-icons';
 </script>
 
 <Navbar class="bg-gray-100">
@@ -28,16 +32,19 @@
 </Navbar>
 
 <div class="flex flex-col items-center p-4">
-	<Card class="flex gap-2 p-4">
+	<Card class="flex gap-3 p-4">
 		<Label for="jarfile">Select a Minecraft JAR to extract textures</Label>
 		<Fileupload id="jarfile" accept=".jar"></Fileupload>
 		<Helper>
-			<code>.minecraft/versions/&lt;version&gt;/&ltversion&gt;.jar</code>
-		</Helper>
-		<Helper>
-			<a class="underline" href="https://minecraft.wiki/w/.minecraft#Locating"
-				>How to find the <code>.minecraft</code> folder</a
+			<a href="https://minecraft.wiki/w/.minecraft#Locating"
+				><Kbd class="cursor-pointer">.minecraft/versions/&lt;version&gt;/&ltversion&gt;.jar</Kbd></a
 			>
 		</Helper>
+		<Popover
+			><div class="flex flex-row items-center gap-1">
+				<span>How to find the <code>.minecraft</code> folder</span>
+				<ArrowUpRightFromSquareOutline />
+			</div>
+		</Popover>
 	</Card>
 </div>
