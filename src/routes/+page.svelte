@@ -9,13 +9,9 @@
 		Card,
 		Helper,
 		Label,
-		Button,
-		Popover,
-		Kbd,
-		Dropzone,
-		Alert
+		Dropzone
 	} from 'flowbite-svelte';
-	import { ArrowUpRightFromSquareOutline } from 'flowbite-svelte-icons';
+	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
 
 	let filesInDropzone: FileList | null = $state(null);
 
@@ -50,9 +46,18 @@
 			>
 		</NavBrand>
 		<NavUl>
-			<NavLi href="https://github.com/colorblockifier/colorblockifier.github.io">About</NavLi>
+			<NavLi class="underline" href="https://github.com/colorblockifier/colorblockifier.github.io"
+				>About</NavLi
+			>
 		</NavUl>
-		<DarkMode class="cursor-pointer" />
+		<DarkMode class="cursor-pointer">
+			{#snippet lightIcon()}
+				<MoonOutline />
+			{/snippet}
+			{#snippet darkIcon()}
+				<SunOutline />
+			{/snippet}
+		</DarkMode>
 	</Navbar>
 
 	<div class="flex grow flex-col items-center bg-gray-100 p-4 dark:bg-gray-700">
