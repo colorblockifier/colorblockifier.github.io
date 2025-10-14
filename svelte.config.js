@@ -11,8 +11,7 @@ const config = {
 			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
 		}
 	},
-	preprocess: [mdsvex()],
-	extensions: ['.svelte', '.svx']
+	extensions: ['.svelte']
 };
 
 export default config;
