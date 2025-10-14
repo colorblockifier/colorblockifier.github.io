@@ -12,3 +12,28 @@ Sort Minecraft blocks by color
 - Library for handling ZIP files: [zip.js](https://gildas-lormeau.github.io/zip.js/)
 
 <sub>This project is not affiliated with Minecraft or Mojang.</sub>
+
+## Developing
+
+- Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- Install dependencies with `npm install` (or `pnpm install` or `yarn`)
+- Start a development server:
+
+```sh
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```sh
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
