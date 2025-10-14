@@ -10,8 +10,12 @@ Sort Minecraft blocks by color
 
 ### Credits:
 
-- Made by: [comfysquirrel](https://github.com/comfysquirrel)
-- Colorscheme: [Solarized Dark](https://ethanschoonover.com/solarized/) by Ethan Schoonover
+Made by: [comfysquirrel](https://github.com/comfysquirrel)
+
+Third party libraries:
+
+- Framework: [Svelte + SvelteKit](https://svelte.dev/)
+- UI components: [Flowbyte Svelte](https://flowbite-svelte.com/)
 - Library for handling ZIP files: [zip.js](https://gildas-lormeau.github.io/zip.js/)
 
 <sub>This project is not affiliated with Minecraft or Mojang.</sub>
