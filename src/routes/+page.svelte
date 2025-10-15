@@ -9,56 +9,36 @@
 		Card,
 		Helper,
 		Label,
-		Fileupload,
-		Textarea,
-		Table
+		Fileupload
 	} from 'flowbite-svelte';
+	import { Table } from '@flowbite-svelte-plugins/datatable';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
 	import { ZipReader, BlobReader } from '@zip.js/zip.js';
 
 	let fileuploadRef = $state() as HTMLInputElement;
-	let textareaRef = $state() as HTMLTextAreaElement;
 	let files: FileList | null = $state(null);
 
 	let reader;
 	let allFiles;
-	let textureFiles;
-	let filteredBlocksText = $state('');
+
+	let textureFiles = $state.raw([]);
+	let tableItems = $derived.by(() => {
+		// return textureFiles.map((file) => ({ filename: file.filename }));
+		return [{ length: textureFiles.length }];
+		// return [{ name: 'example1' }, { name: 'example2' }].map((file) => ({ filename: file.name }));
+	});
 
 	function handleOnChange(event: Event) {
 		// 	console.log(files[0]);
 		loadFile(files[0]);
 	}
 
-	function formatFilesForTable(files) {
-		return files.map((file) => ({ filename: file.filename }));
-	}
-
-	let items = $state([]);
+	$inspect(textureFiles, tableItems);
 
 	async function loadFile(file) {
-		reader = await new ZipReader(new BlobReader(file));
-		// fileSizeString = `${Math.floor(reader.reader.size / 1e6)} MB`;
+		reader = new ZipReader(new BlobReader(file));
 		allFiles = await reader.getEntries();
-
-		// console.log(allFiles);
-
-		textureFiles = allFiles.filter(filterTextures);
-		// let totalTextures = textureFiles.length;
-		textureFiles = textureFiles.filter(filterBlocks);
-		// let totalBlocks = textureFiles.length;
-
-		// console.log(textureFiles);
-
-		filteredBlocksText = textureFiles
-			.reduce((accumulator, currentValue) => {
-				return `${accumulator}${currentValue.filename}\n`;
-			}, '')
-			.trim();
-
-		items = formatFilesForTable(textureFiles);
-
-		// fileInfoElement.innerText = `JAR size: ${fileSizeString}, All textures: ${totalTextures}, Block textures: ${totalBlocks}`;
+		textureFiles = allFiles.filter(filterTextures).filter(filterBlocks);
 	}
 
 	function filterTextures(file) {
@@ -120,20 +100,8 @@
 			/>
 		</Card>
 
-		<Card class="flex max-w-xl gap-2 p-4">
-			<Label for="blocklist_display">Textures:</Label>
-			<Textarea
-				id="blocklist_display"
-				bind:value={filteredBlocksText}
-				bind:elementRef={textareaRef}
-				rows={10}
-				class="w-full"
-				spellcheck="false"
-			/>
-		</Card>
-
 		<Card class="max-w-xl gap-2 p-4">
-			<Table {items}></Table>
+			<Table items={tableItems}></Table>
 		</Card>
 	</div>
 </div>
