@@ -21,10 +21,10 @@
 	let reader;
 	let allFiles;
 
-	let textureFiles = $state.raw([]);
+	let textureFiles = $state([{ filename: 'example1', compressedSize: 0 }]);
 	let tableItems = $derived.by(() => {
 		// return textureFiles.map((file) => ({ filename: file.filename }));
-		return [{ length: textureFiles.length }];
+		return textureFiles;
 		// return [{ name: 'example1' }, { name: 'example2' }].map((file) => ({ filename: file.name }));
 	});
 
@@ -101,7 +101,12 @@
 		</Card>
 
 		<Card class="max-w-xl gap-2 p-4">
-			<Table items={tableItems}></Table>
+			<Table
+				items={tableItems}
+				onRefresh={console.log}
+				onSearch={console.log}
+				onUpdate={console.log}
+			></Table>
 		</Card>
 	</div>
 </div>
