@@ -52,7 +52,7 @@
 					</a>
 				</Helper>
 			</div>
-			<Fileupload id="event" clearable />
+			<Fileupload id="jarfile" accept=".jar" clearable />
 		</Card>
 	</div>
 </div>
