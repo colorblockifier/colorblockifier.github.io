@@ -13,13 +13,53 @@
 		Textarea
 	} from 'flowbite-svelte';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
+	import { ZipReader, BlobReader } from '@zip.js/zip.js';
 
 	let fileuploadRef = $state() as HTMLInputElement;
 	let textareaRef = $state() as HTMLTextAreaElement;
 	let files: FileList | null = $state(null);
 
+	let reader;
+	let fileSizeString;
+	let entriesAll;
+	let entriesFiltered;
+	let filteredBlocksText = $state('');
+
 	function handleOnChange(event: Event) {
 		console.log(files[0]);
+		loadFile(files[0]);
+	}
+
+	async function loadFile(file) {
+		reader = await new ZipReader(new BlobReader(file));
+		// fileSizeString = `${Math.floor(reader.reader.size / 1e6)} MB`;
+		entriesAll = await reader.getEntries();
+
+		console.log(entriesAll);
+
+		entriesFiltered = entriesAll.filter(filterTextures);
+		let totalTextures = entriesFiltered.length;
+		entriesFiltered = entriesFiltered.filter(filterBlocks);
+		let totalBlocks = entriesFiltered.length;
+
+		filteredBlocksText = entriesFiltered
+			.reduce((accumulator, currentValue) => {
+				return `${accumulator}${currentValue.filename}\n`;
+			}, '')
+			.trim();
+
+		// fileInfoElement.innerText = `JAR size: ${fileSizeString}, All textures: ${totalTextures}, Block textures: ${totalBlocks}`;
+	}
+
+	function filterTextures(file) {
+		if (!file.filename.startsWith('assets/minecraft/textures/')) return false;
+		if (!file.filename.endsWith('.png')) return false;
+		return true;
+	}
+
+	function filterBlocks(file) {
+		if (!file.filename.startsWith('assets/minecraft/textures/block/')) return false;
+		return true;
 	}
 </script>
 
@@ -48,7 +88,7 @@
 	</Navbar>
 
 	<div class="flex grow flex-col items-center gap-4 bg-gray-100 p-4 dark:bg-gray-700">
-		<Card class="flex gap-2 p-4">
+		<Card class="flex max-w-xl gap-2 p-4">
 			<div>
 				<Label for="jarfile">Select a Minecraft JAR to extract textures</Label>
 				<Helper>
@@ -71,9 +111,16 @@
 			/>
 		</Card>
 
-		<Card class="flex gap-2 p-4">
+		<Card class="flex max-w-xl gap-2 p-4">
 			<Label for="blocklist_display">Textures:</Label>
-			<Textarea id="blocklist_display" bind:elementRef={textareaRef} rows={10} class="w-full" />
+			<Textarea
+				id="blocklist_display"
+				bind:value={filteredBlocksText}
+				bind:elementRef={textareaRef}
+				rows={10}
+				class="w-full"
+				spellcheck="false"
+			/>
 		</Card>
 	</div>
 </div>
