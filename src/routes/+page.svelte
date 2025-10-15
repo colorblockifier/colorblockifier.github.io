@@ -9,9 +9,18 @@
 		Card,
 		Helper,
 		Label,
-		Fileupload
+		Fileupload,
+		Textarea
 	} from 'flowbite-svelte';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
+
+	let fileuploadRef = $state() as HTMLInputElement;
+	let textareaRef = $state() as HTMLTextAreaElement;
+	let files: FileList | null = $state(null);
+
+	function handleOnChange(event: Event) {
+		console.log(files[0]);
+	}
 </script>
 
 <div class="flex h-dvh flex-col">
@@ -38,8 +47,8 @@
 		</DarkMode>
 	</Navbar>
 
-	<div class="flex grow flex-col items-center bg-gray-100 p-4 dark:bg-gray-700">
-		<Card class="flex gap-4 p-4">
+	<div class="flex grow flex-col items-center gap-4 bg-gray-100 p-4 dark:bg-gray-700">
+		<Card class="flex gap-2 p-4">
 			<div>
 				<Label for="jarfile">Select a Minecraft JAR to extract textures</Label>
 				<Helper>
@@ -52,7 +61,19 @@
 					</a>
 				</Helper>
 			</div>
-			<Fileupload id="jarfile" accept=".jar" clearable />
+			<Fileupload
+				id="jarfile_input"
+				bind:files
+				bind:elementRef={fileuploadRef}
+				onchange={handleOnChange}
+				accept=".jar"
+				clearable
+			/>
+		</Card>
+
+		<Card class="flex gap-2 p-4">
+			<Label for="blocklist_display">Textures:</Label>
+			<Textarea id="blocklist_display" bind:elementRef={textareaRef} rows={10} class="w-full" />
 		</Card>
 	</div>
 </div>
