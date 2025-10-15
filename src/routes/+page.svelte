@@ -9,7 +9,8 @@
 		Card,
 		Helper,
 		Label,
-		Fileupload
+		Fileupload,
+		Listgroup
 	} from 'flowbite-svelte';
 	import { Table } from '@flowbite-svelte-plugins/datatable';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
@@ -21,11 +22,14 @@
 	let reader;
 	let allFiles;
 
-	let textureFiles = $state([{ filename: 'example1', compressedSize: 0 }]);
+	let textureFiles = $state([]);
 	let tableItems = $derived.by(() => {
 		// return textureFiles.map((file) => ({ filename: file.filename }));
 		return textureFiles;
 		// return [{ name: 'example1' }, { name: 'example2' }].map((file) => ({ filename: file.name }));
+	});
+	let listgroupItems = $derived.by(() => {
+		return textureFiles.map((file) => file.filename);
 	});
 
 	function handleOnChange(event: Event) {
@@ -107,6 +111,10 @@
 				onSearch={console.log}
 				onUpdate={console.log}
 			></Table>
+		</Card>
+
+		<Card class="max-w-xl gap-2 p-4">
+			<Listgroup items={listgroupItems}></Listgroup>
 		</Card>
 	</div>
 </div>
