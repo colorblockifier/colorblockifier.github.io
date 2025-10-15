@@ -12,6 +12,7 @@
 		"lint": "prettier --check ."
 	},
 	"devDependencies": {
+		"@flowbite-svelte-plugins/datatable": "^0.4.1",
 		"@sveltejs/adapter-auto": "^6.1.0",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.43.2",

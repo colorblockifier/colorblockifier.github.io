@@ -10,7 +10,8 @@
 		Helper,
 		Label,
 		Fileupload,
-		Textarea
+		Textarea,
+		Table
 	} from 'flowbite-svelte';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
 	import { ZipReader, BlobReader } from '@zip.js/zip.js';
@@ -20,33 +21,42 @@
 	let files: FileList | null = $state(null);
 
 	let reader;
-	let fileSizeString;
-	let entriesAll;
-	let entriesFiltered;
+	let allFiles;
+	let textureFiles;
 	let filteredBlocksText = $state('');
 
 	function handleOnChange(event: Event) {
-		console.log(files[0]);
+		// 	console.log(files[0]);
 		loadFile(files[0]);
 	}
+
+	function formatFilesForTable(files) {
+		return files.map((file) => ({ filename: file.filename }));
+	}
+
+	let items = $state([]);
 
 	async function loadFile(file) {
 		reader = await new ZipReader(new BlobReader(file));
 		// fileSizeString = `${Math.floor(reader.reader.size / 1e6)} MB`;
-		entriesAll = await reader.getEntries();
+		allFiles = await reader.getEntries();
 
-		console.log(entriesAll);
+		// console.log(allFiles);
 
-		entriesFiltered = entriesAll.filter(filterTextures);
-		let totalTextures = entriesFiltered.length;
-		entriesFiltered = entriesFiltered.filter(filterBlocks);
-		let totalBlocks = entriesFiltered.length;
+		textureFiles = allFiles.filter(filterTextures);
+		// let totalTextures = textureFiles.length;
+		textureFiles = textureFiles.filter(filterBlocks);
+		// let totalBlocks = textureFiles.length;
 
-		filteredBlocksText = entriesFiltered
+		// console.log(textureFiles);
+
+		filteredBlocksText = textureFiles
 			.reduce((accumulator, currentValue) => {
 				return `${accumulator}${currentValue.filename}\n`;
 			}, '')
 			.trim();
+
+		items = formatFilesForTable(textureFiles);
 
 		// fileInfoElement.innerText = `JAR size: ${fileSizeString}, All textures: ${totalTextures}, Block textures: ${totalBlocks}`;
 	}
@@ -107,7 +117,6 @@
 				bind:elementRef={fileuploadRef}
 				onchange={handleOnChange}
 				accept=".jar"
-				clearable
 			/>
 		</Card>
 
@@ -121,6 +130,10 @@
 				class="w-full"
 				spellcheck="false"
 			/>
+		</Card>
+
+		<Card class="max-w-xl gap-2 p-4">
+			<Table {items}></Table>
 		</Card>
 	</div>
 </div>
