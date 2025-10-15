@@ -9,31 +9,9 @@
 		Card,
 		Helper,
 		Label,
-		Dropzone
+		Fileupload
 	} from 'flowbite-svelte';
 	import { ArrowUpRightFromSquareOutline, MoonOutline, SunOutline } from 'flowbite-svelte-icons';
-
-	let filesInDropzone: FileList | null = $state(null);
-
-	function handleOnChange(event: Event) {
-		console.log('handleOnChange fired.');
-		const target = event.target as HTMLInputElement;
-		filesInDropzone = target.files;
-	}
-
-	function handleOnDrop(event: DragEvent) {
-		console.log('handleOnDrop fired.');
-		event.preventDefault();
-		filesInDropzone = event.dataTransfer?.files ?? null;
-	}
-
-	function showFiles(files: FileList | null): string {
-		console.log('showFiles fired.');
-		if (!files || files.length === 0) return 'No files selected.';
-		return Array.from(files)
-			.map((file) => file.name)
-			.join(', ');
-	}
 </script>
 
 <div class="flex h-dvh flex-col">
@@ -74,29 +52,7 @@
 					</a>
 				</Helper>
 			</div>
-			<Dropzone
-				class="p-3 text-gray-500 dark:text-gray-400"
-				id="jarfile"
-				accept=".jar"
-				bind:files={filesInDropzone}
-				onChange={handleOnChange}
-				onDrop={handleOnDrop}
-			>
-				{#if !filesInDropzone || filesInDropzone.length === 0}
-					<p class="mb-2 text-sm">
-						<span class="font-semibold">Click to upload</span>
-						or drag and drop
-					</p>
-					<p class="text-xs">
-						<code>.minecraft/versions/&lt;version&gt;/&ltversion&gt;.jar</code>
-					</p>
-				{:else}
-					<p class="text-sm">{showFiles(filesInDropzone)}</p>
-					<button class="mt-2 text-sm hover:underline" onclick={() => (filesInDropzone = null)}
-						>Clear Files</button
-					>
-				{/if}
-			</Dropzone>
+			<Fileupload id="event" clearable />
 		</Card>
 	</div>
 </div>
